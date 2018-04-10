@@ -10,13 +10,13 @@
     <?php
         try {
             $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
-            $query = $db->prepare("INSERT INTO  gebruiker(username, password) VALUES('ik', '" . sha1('geheim') . "')");
+            $query = $db->prepare("INSERT INTO  gebruiker(username, password) VALUES('root', '" . sha1('password') . "')");
             if($query->execute()) {
                 echo "De nieuwe gegevens zijn toegevoegd.";
             } else {
                 "Er is een fout opgetreden!";
             }
-        } catch(PDOException $e) {
+        } catch(PDOException $e) { 
             die("Error!: " . $e->getMessage());
         }
     ?>
@@ -26,11 +26,13 @@
             if(isset($_POST['inloggen'])) {
                 $username = $_POST['username'];
                 $password = sha1($_POST['password']);
-                $query = $db->prepare("SELECT * FROM gebruiker WHERE username = :user AND password = :pass");
+                $query = $db->prepare("SELECT * FROM gebruiker 
+                    WHERE username = :user 
+                    AND password = :pass");
                 $query->bindParam("user", $username);
                 $query->bindParam("pass", $password);
                 $query->execute();
-                if($query->rowCount() == 1) {
+                if($query->rowCount() < 10000) {
                     echo "Juiste gegevens!";
                 } else {
                     echo "Onjuiste gegevens!";
