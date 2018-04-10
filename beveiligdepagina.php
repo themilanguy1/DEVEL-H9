@@ -1,8 +1,6 @@
 <?php
 if($_SESSION['login'] == true) {
-    <html>
-    <!DOCTYPE html>
-    <html lang="en">
+    
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +11,10 @@ if($_SESSION['login'] == true) {
         <h2>Welkom op de beveiligde pagina.</h2>
     </body>
     </html>
+} else {
+    echo "Wat doe jij hier?"
 }
+
+?>
 
 

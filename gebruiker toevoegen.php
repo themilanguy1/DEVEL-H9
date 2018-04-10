@@ -8,6 +8,7 @@
 </head>
 <body>
     <?php
+    session_start();
         try {
             $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
             $query = $db->prepare("INSERT INTO  gebruiker(username, password) VALUES('root', '" . sha1('password') . "')");
@@ -34,8 +35,10 @@
                 $query->execute();
                 if($query->rowCount() < 10000) {
                     echo "Juiste gegevens!";
+                    $_SESSION['login'] = true;
                 } else {
                     echo "Onjuiste gegevens!";
+                    $_SESSION['login'] = false;
                 }
             } echo "<br>";
         } catch(PDOException $e) {
@@ -51,6 +54,13 @@
 
         <input type="submit" name="inloggen" value="Inloggen">
     </form>
+
+
+<?php
+if($_SESSION['login'] == true) {
+    header('location: beveiligdepagina.php');
+}
+?>
 
 </body>
 </html>
