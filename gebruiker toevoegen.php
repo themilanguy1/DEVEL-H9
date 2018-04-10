@@ -3,23 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible">
     <title>Gebruiker Toevoegen</title>
 </head>
 <body>
     <?php
     session_start();
-        try {
-            $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
-            $query = $db->prepare("INSERT INTO  gebruiker(username, password) VALUES('root', '" . sha1('password') . "')");
-            if($query->execute()) {
-                echo "De nieuwe gegevens zijn toegevoegd.";
-            } else {
-                "Er is een fout opgetreden!";
+        if(!isset($_POST['inloggen'])) {
+            try {
+                $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
+                $query = $db->prepare("INSERT INTO  gebruiker(username, password) VALUES('root', '" . sha1('password') . "')");
+                if($query->execute()) {
+                    echo "De nieuwe gegevens zijn toegevoegd.";
+                } else {
+                    "Er is een fout opgetreden!";
+                }
+            } catch(PDOException $e) { 
+                die("Error!: " . $e->getMessage());
             }
-        } catch(PDOException $e) { 
-            die("Error!: " . $e->getMessage());
         }
+
     ?>
     <?php
         try {
@@ -33,12 +36,12 @@
                 $query->bindParam("user", $username);
                 $query->bindParam("pass", $password);
                 $query->execute();
-                if($query->rowCount() < 10000) {
+                if($query->rowCount() < 1) {
                     echo "Juiste gegevens!";
-                    $_SESSION['login'] = true;
+                    $_SESSION['login'] = 1;
                 } else {
                     echo "Onjuiste gegevens!";
-                    $_SESSION['login'] = false;
+                    $_SESSION['login'] = 0;
                 }
             } echo "<br>";
         } catch(PDOException $e) {
@@ -57,7 +60,7 @@
 
 
 <?php
-if($_SESSION['login'] == true) {
+if($_SESSION['login'] == 1) {
     header('location: beveiligdepagina.php');
 }
 ?>
