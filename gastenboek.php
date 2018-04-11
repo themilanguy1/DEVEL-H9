@@ -9,7 +9,18 @@ if(isset($_POST['naam'])) {
 
     include 'connect.php';
 
+    $sql = "INSERT INTO gastenboek (naam, bericht)
+    VALUES ('$naam', '$bericht')";
     
+    if ($conn->query($sql) === TRUE) {
+        
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    
+    $conn->close();
+
+
 
 
 } else { 
@@ -39,13 +50,12 @@ if(isset($_POST['naam'])) {
         <p>Zou u nog een boodschap achter willen laten in ons online gastenboek?</p>
         <br>
 
-        <form method="post" action="">
-            <input type="text" name="naam" placeholder="naam">
-            <input type="textarea" name="bericht" placeholder="je bericht">
-            <br>
-            <br>
-            <input type="submit" value="bericht verzenden">
-        </form>
+        <form method="post" action="" id="formulier">
+            <p>Naam: <input type="text" name="naam"></p>    
+        <p>Je bericht: </p>
+        <textarea form="formulier" wrap="soft" rows="5" cols="10" name="bericht"></textarea>
+            <input type="submit" value="opslaan">
+        </form> 
 
 
     </html>
