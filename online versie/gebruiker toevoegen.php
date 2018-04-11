@@ -11,7 +11,7 @@
     <?php
     session_start();
         try {
-            $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
+            $db = new PDO("mysql:host=localhost; dbname=deb43619_milan", "deb43619_milan", "MlG199713");
             if(isset($_POST['inloggen'])) {
                 $username = $_POST['username'];
                 $password = sha1($_POST['password']);
@@ -43,6 +43,11 @@
         <input type="submit" name="inloggen" value="Inloggen">
     </form>
 
+<br><br>
+<p>username = root<p>
+<p>password = password<p>
+</body>
+</html>
 
 <?php
 if(isset($_SESSION['login'])) {
@@ -51,8 +56,4 @@ if(isset($_SESSION['login'])) {
         exit;
     }
 }
-
 ?>
-
-</body>
-</html>

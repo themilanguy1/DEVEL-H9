@@ -1,5 +1,5 @@
 <?php
-    include 'connect2.php';
+    include 'connect.php';
 
 if(isset($_POST['optie'])) {
     $stem=$_POST['optie'];
@@ -42,6 +42,9 @@ if ($result->num_rows > 0) {
     .titel {
         margin: auto;
         margin-bottom: 1em;
+    }
+    body {
+        font-size: 30px;
     }
 </style>
 <body>

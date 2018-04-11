@@ -20,7 +20,7 @@
 <body>
     <?php
         try {
-            $db = new PDO("mysql:host=localhost; dbname=cijfersysteem", "root", "");
+            $db = new PDO("mysql:host=localhost; dbname=deb43619_milan", "deb43619_milan", "MlG199713");
             $query = $db->prepare("SELECT * FROM  cijfersysteem");
             $query->execute();
             $result = $query->fetchAll(PDO::FETCH_ASSOC);

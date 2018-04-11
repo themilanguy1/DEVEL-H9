@@ -21,7 +21,7 @@
     <div>
         <?php
             try {
-                $db = new PDO("mysql:host=localhost; dbname=fietsenmaker", "root", "");
+                $db = new PDO("mysql:host=localhost; dbname=deb43619_milan", "deb43619_milan", "MlG199713");
                 $query = $db->prepare("SELECT * FROM  fietsen");
                 $query->execute();
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
