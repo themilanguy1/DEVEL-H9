@@ -7,24 +7,9 @@
     <title>Gebruiker Toevoegen</title>
 </head>
 <body>
+
     <?php
     session_start();
-        if(!isset($_POST['inloggen'])) {
-            try {
-                $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
-                $query = $db->prepare("INSERT INTO  gebruiker(username, password) VALUES('root', '" . sha1('password') . "')");
-                if($query->execute()) {
-                    echo "De nieuwe gegevens zijn toegevoegd.";
-                } else {
-                    "Er is een fout opgetreden!";
-                }
-            } catch(PDOException $e) { 
-                die("Error!: " . $e->getMessage());
-            }
-        }
-
-    ?>
-    <?php
         try {
             $db = new PDO("mysql:host=localhost;dbname=fietsenmaker", "root", "");
             if(isset($_POST['inloggen'])) {
@@ -36,12 +21,12 @@
                 $query->bindParam("user", $username);
                 $query->bindParam("pass", $password);
                 $query->execute();
-                if($query->rowCount() < 1) {
+                if($query->rowCount() == 1) {
                     echo "Juiste gegevens!";
-                    $_SESSION['login'] = 1;
+                    $_SESSION['login'] = true;
                 } else {
                     echo "Onjuiste gegevens!";
-                    $_SESSION['login'] = 0;
+                    $_SESSION['login'] = false;
                 }
             } echo "<br>";
         } catch(PDOException $e) {
@@ -60,9 +45,13 @@
 
 
 <?php
-if($_SESSION['login'] == 1) {
-    header('location: beveiligdepagina.php');
+if(isset($_SESSION['login'])) {
+    if($_SESSION['login'] == true) {
+        header('location: beveiligdepagina.php');
+        exit;
+    }
 }
+
 ?>
 
 </body>
