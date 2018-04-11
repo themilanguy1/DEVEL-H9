@@ -7,7 +7,7 @@ if(isset($_POST['naam'])) {
     $naam = $_POST['naam'];
     $bericht = $_POST['bericht'];
 
-    include 'connect.php';
+    include 'connect2.php';
 
     $sql = "INSERT INTO gastenboek (naam, bericht)
     VALUES ('$naam', '$bericht')";
